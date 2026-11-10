@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login | SLMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">SLMS</div>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <main class="form-container">
+        <h1>Student Login</h1>
+        <p>Login to manage your leave applications.</p>
+
+        <form id="studentLoginForm">
+
+            <label for="loginEmail">Email Address</label>
+            <input
+                type="email"
+                id="loginEmail"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label for="loginPassword">Password</label>
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter your password"
+                required
+            >
+
+            <p id="loginMessage" class="form-message"></p>
+
+            <button type="submit" class="primary-btn">
+                Login
+            </button>
+
+        </form>
+
+        <p>Don't have an account?
+            <a href="student-register.html">Register here</a>
+        </p>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

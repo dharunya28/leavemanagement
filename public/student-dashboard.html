@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | SLMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <nav class="navbar">
+        <div class="logo">SLMS</div>
+        <div class="nav-links">
+            <span id="studentWelcome">Student Portal</span>
+            <button type="button" class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+
+        <section class="dashboard-heading">
+            <p class="eyebrow">STUDENT PORTAL</p>
+            <h1>Welcome, <span id="studentName">Student</span>!</h1>
+            <p>Manage your leave applications in one place.</p>
+        </section>
+
+        <section class="profile-card">
+            <h2>My Profile</h2>
+            <div class="profile-grid">
+                <p><strong>Name:</strong> <span id="profileName">-</span></p>
+                <p><strong>Register Number:</strong> <span id="profileRegister">-</span></p>
+                <p><strong>Email:</strong> <span id="profileEmail">-</span></p>
+                <p><strong>Department:</strong> <span id="profileDepartment">-</span></p>
+                <p><strong>Year:</strong> <span id="profileYear">-</span></p>
+            </div>
+        </section>
+
+        <section class="balance-section">
+            <div class="balance-card">
+                <p>Total Leave</p>
+                <h2 id="totalLeave">12</h2>
+            </div>
+            <div class="balance-card">
+                <p>Used Leave</p>
+                <h2 id="usedLeave">0</h2>
+            </div>
+            <div class="balance-card">
+                <p>Remaining Leave</p>
+                <h2 id="remainingLeave">12</h2>
+            </div>
+        </section>
+
+        <section class="dashboard-card">
+            <h2>Apply for Leave</h2>
+            <p class="section-description">
+                Fill in the details to submit your leave request.
+            </p>
+
+            <form id="leaveForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="leaveType">Leave Type</label>
+                        <select id="leaveType" required>
+                            <option value="">Select leave type</option>
+                            <option value="Sick Leave">Sick Leave</option>
+                            <option value="Casual Leave">Casual Leave</option>
+                            <option value="Emergency Leave">Emergency Leave</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" id="fromDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toDate">To Date</label>
+                        <input type="date" id="toDate" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="reason">Reason for Leave</label>
+                        <textarea id="reason" rows="4"
+                            placeholder="Enter your reason..." required></textarea>
+                    </div>
+
+                </div>
+
+                <p id="leaveMessage" class="form-message"></p>
+
+                <button type="submit" class="primary-btn">
+                    Submit Leave Application
+                </button>
+
+            </form>
+        </section>
+
+        <section class="dashboard-card">
+
+            <div class="history-heading">
+                <div>
+                    <h2>My Leave History</h2>
+                    <p class="section-description">
+                        Track the status of your applications.
+                    </p>
+                </div>
+
+                <button type="button" class="refresh-btn"
+                    onclick="loadDashboard()">Refresh</button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Leave Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Staff Remark</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="leaveHistory">
+                        <tr>
+                            <td colspan="7">Loading leave history...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="student-dashboard.js"></script>
+</body>
+</html>
