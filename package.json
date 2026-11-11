@@ -1,13 +1,23 @@
 {
   "name": "studentleavemanagement",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Student Leave Management System",
+  "main": "app.js",
   "scripts": {
-  "start": "node app.js",
-  "dev": "nodemon app.js"
-},
-  "keywords": [],
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "seed:staff": "node scripts/createStaff.js",
+    "test": "node tests/verifyAll.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "leave-management",
+    "express",
+    "mongodb",
+    "student-portal"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",

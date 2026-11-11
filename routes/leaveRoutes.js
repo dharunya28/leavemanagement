@@ -190,7 +190,7 @@ router.patch("/:id/status", isStaff, async (req, res) => {
                 {
                     $inc: { usedLeave: leave.totalDays }
                 },
-                { new: true }
+                { returnDocument: "after" }
             );
 
             if (!student) {
@@ -214,7 +214,7 @@ router.patch("/:id/status", isStaff, async (req, res) => {
                     approvedBy: req.staff._id
                 }
             },
-            { new: true }
+            { returnDocument: "after" }
         );
 
         // Roll back balance if another staff action processed it first
