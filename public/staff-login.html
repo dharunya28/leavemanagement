@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Login | SLMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">SLMS</div>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <main class="form-container">
+        <h1>Staff Login</h1>
+        <p>Login to manage student leave requests.</p>
+
+        <form id="staffLoginForm">
+
+            <label for="staffEmail">Staff Email</label>
+            <input
+                type="email"
+                id="staffEmail"
+                placeholder="Enter staff email"
+                required
+            >
+
+            <label for="staffPassword">Password</label>
+            <input
+                type="password"
+                id="staffPassword"
+                placeholder="Enter password"
+                required
+            >
+
+            <p id="staffLoginMessage" class="form-message"></p>
+
+            <button type="submit" class="primary-btn">
+                Staff Login
+            </button>
+
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

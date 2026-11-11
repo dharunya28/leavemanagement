@@ -1,10 +1,15 @@
 
-const API = "/api";
+const API_BASE = window.location.origin.includes("github.io")
+    ? "https://leavemanagement-2.onrender.com"
+    : "";
+const API = `${API_BASE}/api`;
 
 // Load student details, leave balance and history
 async function loadDashboard() {
     try {
-        const response = await fetch(`${API}/auth/me`);
+        const response = await fetch(`${API}/auth/me`, {
+            credentials: "include"
+        });
         const data = await response.json();
 
         if (!response.ok || !data.success || data.role !== "student") {
@@ -34,7 +39,9 @@ async function loadDashboard() {
 // Load leave balance
 async function loadBalance() {
     try {
-        const response = await fetch(`${API}/leaves/balance`);
+        const response = await fetch(`${API}/leaves/balance`, {
+            credentials: "include"
+        });
         const data = await response.json();
 
         if (!response.ok) {
@@ -61,7 +68,9 @@ async function loadLeaveHistory() {
     const tableBody = document.getElementById("leaveHistory");
 
     try {
-        const response = await fetch(`${API}/leaves/my-leaves`);
+        const response = await fetch(`${API}/leaves/my-leaves`, {
+            credentials: "include"
+        });
         const data = await response.json();
 
         if (!response.ok) {
@@ -126,6 +135,7 @@ document.getElementById("leaveForm").addEventListener("submit", async function(e
     try {
         const response = await fetch(`${API}/leaves/apply`, {
             method: "POST",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -164,7 +174,8 @@ document.getElementById("leaveForm").addEventListener("submit", async function(e
 async function logout() {
     try {
         await fetch(`${API}/auth/logout`, {
-            method: "POST"
+            method: "POST",
+            credentials: "include"
         });
 
         window.location.href = "student-login.html";

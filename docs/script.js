@@ -1,5 +1,7 @@
 
-const API_URL = "https://student-leave-management-bjjx.onrender.com";
+const API_URL = window.location.origin.includes("github.io")
+    ? "https://leavemanagement-2.onrender.com"
+    : "";
 
 // =====================================
 // STUDENT REGISTRATION

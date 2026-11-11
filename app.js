@@ -2,6 +2,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
+const fs = require("fs");
 const session = require("express-session");
 
 const connectDB = require("./config/db");
@@ -24,18 +25,24 @@ if (isProduction) {
 // CORS CONFIGURATION
 // =====================================
 
-const allowedOrigins = [
-    "https://dharunya28.github.io",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    "http://localhost:3000",
-    "http://localhost:5173"
-];
+const isAllowedOrigin = (origin) => {
+    if (!origin) return true;
+    if (
+        origin === "https://dharunya28.github.io" ||
+        origin.endsWith(".github.io") ||
+        origin.endsWith(".onrender.com") ||
+        origin.startsWith("http://localhost:") ||
+        origin.startsWith("http://127.0.0.1:")
+    ) {
+        return true;
+    }
+    return false;
+};
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
 
-    if (origin && allowedOrigins.includes(origin)) {
+    if (origin && isAllowedOrigin(origin)) {
         res.header("Access-Control-Allow-Origin", origin);
         res.header("Access-Control-Allow-Credentials", "true");
         res.header(
@@ -109,14 +116,18 @@ app.use("/api/leaves", leaveRoutes);
 // FRONTEND STATIC FILES
 // =====================================
 
+const frontendDir = fs.existsSync(path.join(__dirname, "public"))
+    ? path.join(__dirname, "public")
+    : path.join(__dirname, "docs");
+
 app.use(
-    express.static(path.join(__dirname, "public"), {
+    express.static(frontendDir, {
         extensions: ["html"]
     })
 );
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 // =====================================

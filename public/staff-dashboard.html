@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard | SLMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+    <nav class="navbar">
+        <div class="logo">SLMS</div>
+
+        <div class="nav-links">
+            <span id="staffWelcome">Staff Portal</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+
+        <section class="dashboard-heading">
+            <p class="eyebrow">STAFF PORTAL</p>
+            <h1>Welcome, <span id="staffName">Staff</span>!</h1>
+            <p>Manage and review student leave applications.</p>
+        </section>
+
+        <section class="balance-section">
+
+            <div class="balance-card">
+                <p>Total Applications</p>
+                <h2 id="totalApplications">0</h2>
+            </div>
+
+            <div class="balance-card">
+                <p>Pending Requests</p>
+                <h2 id="pendingApplications">0</h2>
+            </div>
+
+            <div class="balance-card">
+                <p>Approved Requests</p>
+                <h2 id="approvedApplications">0</h2>
+            </div>
+
+            <div class="balance-card">
+                <p>Rejected Requests</p>
+                <h2 id="rejectedApplications">0</h2>
+            </div>
+
+        </section>
+
+        <section class="dashboard-card">
+
+            <div class="history-heading">
+                <div>
+                    <h2>Student Leave Applications</h2>
+                    <p class="section-description">
+                        Review, approve or reject leave requests.
+                    </p>
+                </div>
+
+                <button class="refresh-btn" onclick="loadStaffDashboard()">
+                    Refresh
+                </button>
+            </div>
+
+            <p id="staffMessage" class="form-message"></p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Register No.</th>
+                            <th>Department</th>
+                            <th>Leave Type</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Days</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="staffLeaveTable">
+                        <tr>
+                            <td colspan="10">Loading applications...</td>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="staff-dashboard.js"></script>
+
+</body>
+</html>

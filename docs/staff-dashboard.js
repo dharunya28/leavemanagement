@@ -1,10 +1,17 @@
 
 const staffTable = document.getElementById("staffLeaveTable");
 
+const API_BASE = window.location.origin.includes("github.io")
+    ? "https://leavemanagement-2.onrender.com"
+    : "";
+const API = `${API_BASE}/api`;
+
 // LOAD DASHBOARD
 async function loadStaffDashboard() {
     try {
-        const response = await fetch("/api/auth/me");
+        const response = await fetch(`${API}/auth/me`, {
+            credentials: "include"
+        });
 
         if (!response.ok) {
             window.location.href = "staff-login.html";
@@ -34,7 +41,9 @@ async function loadStaffDashboard() {
 // LOAD ALL APPLICATIONS
 async function loadAllApplications() {
     try {
-        const response = await fetch("/api/leaves/all");
+        const response = await fetch(`${API}/leaves/all`, {
+            credentials: "include"
+        });
         const data = await response.json();
 
         if (!response.ok) {
@@ -122,8 +131,9 @@ async function updateLeaveStatus(leaveId, status) {
     if (!confirmation) return;
 
     try {
-        const response = await fetch(`/api/leaves/${leaveId}/status`, {
+        const response = await fetch(`${API}/leaves/${leaveId}/status`, {
             method: "PATCH",
+            credentials: "include",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -168,7 +178,10 @@ function escapeHTML(value) {
 
 // LOGOUT
 async function logout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await fetch(`${API}/auth/logout`, {
+        method: "POST",
+        credentials: "include"
+    });
     window.location.href = "staff-login.html";
 }
 

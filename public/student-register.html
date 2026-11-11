@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | SLMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">SLMS</div>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <main class="form-container">
+        <h1>Student Registration</h1>
+        <p>Create your student account.</p>
+
+        <form id="registerForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="registerNumber">Register Number</label>
+            <input type="text" id="registerNumber" placeholder="Enter register number" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Minimum 6 characters" minlength="6" required>
+
+            <label for="department">Department</label>
+            <select id="department" required>
+                <option value="">Select Department</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Electronics and Communication">Electronics and Communication</option>
+                <option value="Electrical and Electronics">Electrical and Electronics</option>
+                <option value="Mechanical">Mechanical</option>
+                <option value="Civil">Civil</option>
+            </select>
+
+            <label for="year">Year</label>
+            <select id="year" required>
+                <option value="">Select Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+            </select>
+
+            <p id="registerMessage" class="form-message"></p>
+
+            <button type="submit" class="primary-btn">
+                Register
+            </button>
+
+        </form>
+
+        <p>Already registered?
+            <a href="student-login.html">Login here</a>
+        </p>
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
