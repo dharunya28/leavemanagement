@@ -1,3 +1,4 @@
+
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
@@ -12,36 +13,83 @@ dotenv.config();
 
 const app = express();
 
-// Trust reverse proxy in production (required for Render)
-if (process.env.NODE_ENV === "production") {
+const isProduction = process.env.NODE_ENV === "production";
+
+// Trust Render proxy
+if (isProduction) {
     app.set("trust proxy", 1);
 }
 
-// Connect MongoDB and optionally seed initial staff if env variables are present
-connectDB().then(() => {
-    seedInitialStaff();
+// =====================================
+// CORS CONFIGURATION
+// =====================================
+
+const allowedOrigins = [
+    "https://dharunya28.github.io",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://localhost:3000",
+    "http://localhost:5173"
+];
+
+app.use((req, res, next) => {
+    const origin = req.headers.origin;
+
+    if (origin && allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header("Access-Control-Allow-Credentials", "true");
+        res.header(
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+        );
+        res.header(
+            "Access-Control-Allow-Headers",
+            "Content-Type, Authorization"
+        );
+    }
+
+    res.header("Vary", "Origin");
+
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(204);
+    }
+
+    next();
 });
 
-// Read incoming data
+// =====================================
+// BODY PARSING
+// =====================================
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session configuration
+// =====================================
+// SESSION CONFIGURATION
+// =====================================
+
 app.use(
     session({
-        secret: process.env.SESSION_SECRET || "student-leave-secret-key-fallback",
+        secret:
+            process.env.SESSION_SECRET ||
+            "student-leave-secret-key-fallback",
+
         resave: false,
         saveUninitialized: false,
+
         cookie: {
             maxAge: 24 * 60 * 60 * 1000,
             httpOnly: true,
-            sameSite: "lax",
-            secure: "auto"
+            sameSite: isProduction ? "none" : "lax",
+            secure: isProduction
         }
     })
 );
 
-// Health check endpoint for Render deployment monitoring
+// =====================================
+// HEALTH CHECK
+// =====================================
+
 app.get("/api/health", (req, res) => {
     res.status(200).json({
         success: true,
@@ -50,21 +98,47 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// Connect authentication APIs
-app.use("/api/auth", authRoutes);
+// =====================================
+// API ROUTES
+// =====================================
 
-// Connect leave management APIs
+app.use("/api/auth", authRoutes);
 app.use("/api/leaves", leaveRoutes);
 
-// Load frontend files (support both .html extension and clean routes)
-app.use(express.static(path.join(__dirname, "public"), { extensions: ["html"] }));
+// =====================================
+// FRONTEND STATIC FILES
+// =====================================
 
-// Home page route
+app.use(
+    express.static(path.join(__dirname, "public"), {
+        extensions: ["html"]
+    })
+);
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Start server
+// =====================================
+// DATABASE CONNECTION & STAFF SETUP
+// =====================================
+
+connectDB()
+    .then(async () => {
+        console.log("MongoDB connected successfully");
+
+        await seedInitialStaff();
+
+        console.log("Initial staff setup completed");
+    })
+    .catch((error) => {
+        console.error("Database or staff setup error:", error);
+    });
+
+// =====================================
+// START SERVER
+// =====================================
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -1,4 +1,6 @@
 
+const API_URL = "https://student-leave-management-bjjx.onrender.com";
+
 // =====================================
 // STUDENT REGISTRATION
 // =====================================
@@ -24,8 +26,9 @@ if (registerForm) {
             message.textContent = "Registering...";
             message.className = "form-message";
 
-            const response = await fetch("/api/auth/student/register", {
+            const response = await fetch(`${API_URL}/api/auth/student/register`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -76,8 +79,9 @@ if (studentLoginForm) {
             message.textContent = "Logging in...";
             message.className = "form-message";
 
-            const response = await fetch("/api/auth/student/login", {
+            const response = await fetch(`${API_URL}/api/auth/student/login`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -122,9 +126,11 @@ if (staffLoginForm) {
 
         try {
             message.textContent = "Logging in...";
+            message.className = "form-message";
 
-            const response = await fetch("/api/auth/staff/login", {
+            const response = await fetch(`${API_URL}/api/auth/staff/login`, {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -138,6 +144,7 @@ if (staffLoginForm) {
             }
 
             message.textContent = "Login successful!";
+            message.className = "form-message success";
 
             window.location.href = "staff-dashboard.html";
 
